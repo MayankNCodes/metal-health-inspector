@@ -8,6 +8,10 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { CalendarIcon, ChevronDown, ChevronRight, FlaskConical, Calculator, FileSpreadsheet, Download } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { LocationService } from './LocationService';
+import { WaterQualityClassification } from './WaterQualityClassification';
+import { IndexChart } from './IndexChart';
+import { UserRoleDisplay } from './UserRoleDisplay';
 
 // Types for our data structures
 interface SampleData {
@@ -79,6 +83,7 @@ export const HMPICalculator: React.FC = () => {
 
   const [results, setResults] = useState<HMPIResults | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
+  const [isLocationLoading, setIsLocationLoading] = useState(false);
   
   // Section expansion states
   const [expandedSections, setExpandedSections] = useState({
@@ -158,6 +163,10 @@ export const HMPICalculator: React.FC = () => {
     setIdealValues(prev => ({ ...prev, [symbol]: Number(value) }));
   };
 
+  const handleLocationUpdate = (latitude: number, longitude: number) => {
+    setSampleData(prev => ({ ...prev, latitude, longitude }));
+  };
+
   const getClassificationColor = (classification: string): string => {
     if (classification.toLowerCase().includes('low') || classification.toLowerCase().includes('clean')) return 'success';
     if (classification.toLowerCase().includes('moderate')) return 'warning';
@@ -166,7 +175,7 @@ export const HMPICalculator: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-background p-4">
-      <div className="max-w-6xl mx-auto space-y-6">
+        <div className="max-w-6xl mx-auto space-y-6">
         
         {/* Header */}
         <Card className="bg-gradient-card shadow-card border-0">
@@ -182,6 +191,9 @@ export const HMPICalculator: React.FC = () => {
             </CardDescription>
           </CardHeader>
         </Card>
+
+        {/* User Role Display */}
+        <UserRoleDisplay role="Researcher" username="Environmental Scientist" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
@@ -240,6 +252,13 @@ export const HMPICalculator: React.FC = () => {
                         value={sampleData.longitude}
                         onChange={(e) => setSampleData(prev => ({ ...prev, longitude: e.target.value === '' ? '' : Number(e.target.value) }))}
                         placeholder="e.g., -74.0060"
+                      />
+                    </div>
+                    <div className="space-y-2 md:col-span-2">
+                      <LocationService 
+                        onLocationUpdate={handleLocationUpdate}
+                        isLoading={isLocationLoading}
+                        setIsLoading={setIsLocationLoading}
                       />
                     </div>
                     <div className="space-y-2 md:col-span-2">
@@ -351,50 +370,52 @@ export const HMPICalculator: React.FC = () => {
 
             {/* Results */}
             {results && (
-              <Card className="shadow-elevated">
-                <Collapsible open={expandedSections.results} onOpenChange={() => toggleSection('results')}>
-                  <CollapsibleTrigger asChild>
-                    <CardHeader className="cursor-pointer hover:bg-muted/50 transition-colors">
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="flex items-center gap-2">
-                          <FlaskConical className="h-5 w-5 text-primary" />
-                          HMPI Results
-                        </CardTitle>
-                        {expandedSections.results ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-                      </div>
-                    </CardHeader>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <CardContent className="space-y-4">
-                      <div className="p-4 rounded-lg bg-gradient-card">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-medium">Classification</span>
-                          <Badge variant={getClassificationColor(results.classification) as any}>
-                            {results.classification}
-                          </Badge>
+              <>
+                <Card className="shadow-elevated">
+                  <Collapsible open={expandedSections.results} onOpenChange={() => toggleSection('results')}>
+                    <CollapsibleTrigger asChild>
+                      <CardHeader className="cursor-pointer hover:bg-muted/50 transition-colors">
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="flex items-center gap-2">
+                            <FlaskConical className="h-5 w-5 text-primary" />
+                            HMPI Results
+                          </CardTitle>
+                          {expandedSections.results ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                         </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-2 gap-3">
-                        {[
-                          { label: 'HPI', value: results.HPI },
-                          { label: 'HEI', value: results.HEI },
-                          { label: 'HMPI', value: results.HMPI },
-                          { label: 'HCI', value: results.HCI },
-                          { label: 'Cd', value: results.Cd },
-                          { label: 'PI', value: results.PI },
-                          { label: 'PLI', value: results.PLI },
-                        ].map((item) => (
-                          <div key={item.label} className="p-3 rounded-lg bg-muted/50">
-                            <div className="text-sm text-muted-foreground">{item.label}</div>
-                            <div className="text-lg font-semibold">{item.value.toFixed(2)}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </CollapsibleContent>
-                </Collapsible>
-              </Card>
+                      </CardHeader>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <CardContent className="space-y-4">
+                        <div className="grid grid-cols-2 gap-3">
+                          {[
+                            { label: 'HPI', value: results.HPI },
+                            { label: 'HEI', value: results.HEI },
+                            { label: 'HMPI', value: results.HMPI },
+                            { label: 'HCI', value: results.HCI },
+                            { label: 'Cd', value: results.Cd },
+                            { label: 'PI', value: results.PI },
+                            { label: 'PLI', value: results.PLI },
+                          ].map((item) => (
+                            <div key={item.label} className="p-3 rounded-lg bg-muted/50">
+                              <div className="text-sm text-muted-foreground">{item.label}</div>
+                              <div className="text-lg font-semibold">{item.value.toFixed(2)}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </Card>
+                
+                <WaterQualityClassification
+                  hmpiValue={results.HMPI}
+                  hpiValue={results.HPI}
+                  heiValue={results.HEI}
+                  pliValue={results.PLI}
+                />
+                
+                <IndexChart results={results} />
+              </>
             )}
 
           </div>
