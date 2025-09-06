@@ -1,1 +1,44 @@
 project_id = "rppesdahniuwawcnernm"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[auth]
+enabled = true
+port = 9999
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["https://lovable.dev"]
+jwt_expiry = 3600
+refresh_token_rotation_enabled = true
+refresh_token_reuse_interval = 10
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false
+
+[storage]
+enabled = true
+port = 5432
+file_size_limit = "50MiB"
+buckets = []
+
+[edge_functions]
+enabled = true
+port = 54322
+
+[analytics]
+enabled = false
+port = 54327
+backend = "postgres"
+
+[functions.water-quality-calculations]
+verify_jwt = false
+
+[functions.generate-report]
+verify_jwt = false
