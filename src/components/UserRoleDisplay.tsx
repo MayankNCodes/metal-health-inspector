@@ -35,27 +35,23 @@ export const UserRoleDisplay: React.FC<UserRoleDisplayProps> = ({
   };
 
   return (
-    <Card className="shadow-card">
+    <Card className="shadow-card mt-9">
       <CardContent className="p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-full bg-muted">
+        <div className="flex items-center justify-between max-sm:flex-col">
+          <div className="flex items-center">
+            <div className="p-1 rounded-full bg-muted">
               {getRoleIcon(role)}
             </div>
-            <div>
-              <p className="font-medium">{username}</p>
-              <p className="text-sm text-muted-foreground">Current Session</p>
-            </div>
+              <p className="font-medium m-1">{username}</p>
           </div>
           <Badge variant={getRoleColor(role) as any} className="flex items-center gap-1">
-            {getRoleIcon(role)}
             {role}
           </Badge>
         </div>
         
-        <div className="mt-3 pt-3 border-t">
-          <p className="text-xs text-muted-foreground">
-            Session started: {new Date().toLocaleString()}
+        <div className="mt-3 pt-3 border-t max-sm:hidden">
+          <p className="text-xs text-muted-foreground text-center max-sm:hidden">
+            {new Date().toLocaleString()}
           </p>
         </div>
       </CardContent>

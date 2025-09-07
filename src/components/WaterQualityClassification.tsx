@@ -88,7 +88,7 @@ export const WaterQualityClassification: React.FC<ClassificationProps> = ({
   return (
     <Card className="shadow-card">
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between max-sm:flex-col">
           <div>
             <CardTitle className="flex items-center gap-2">
               {overallQuality.icon}
@@ -96,7 +96,7 @@ export const WaterQualityClassification: React.FC<ClassificationProps> = ({
             </CardTitle>
             <CardDescription>{overallQuality.description}</CardDescription>
           </div>
-          <Badge variant={overallQuality.color as any} className="text-lg px-3 py-1">
+          <Badge variant={overallQuality.color as any} className="text-lg px-3 mt-3 py-1">
             {overallQuality.level}
           </Badge>
         </div>
@@ -112,7 +112,7 @@ export const WaterQualityClassification: React.FC<ClassificationProps> = ({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="font-medium">{index.name}</span>
-                  <span className="text-sm text-muted-foreground">{index.label}</span>
+                  <span className="text-sm text-muted-foreground max-sm:hidden">{index.label}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-medium">{index.value.toFixed(2)}</span>
@@ -128,7 +128,7 @@ export const WaterQualityClassification: React.FC<ClassificationProps> = ({
         
         <div className="mt-6 p-4 rounded-lg bg-muted/50">
           <h4 className="font-medium mb-2">Quality Assessment Guidelines</h4>
-          <div className="grid grid-cols-2 gap-2 text-sm">
+          <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-2 text-sm">
             <div className="flex items-center gap-2">
               <CheckCircle className="h-3 w-3 text-green-600" />
               <span>Good: Safe for consumption</span>

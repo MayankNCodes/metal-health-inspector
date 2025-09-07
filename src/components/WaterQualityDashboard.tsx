@@ -192,10 +192,10 @@ export const WaterQualityDashboard: React.FC<WaterQualityDashboardProps> = ({ us
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-primary">Jal Sewa</h1>
-              <span className="text-sm text-muted-foreground">Water Quality Management</span>
+          <div className="flex justify-between max-sm:justify-center items-center h-16">
+            <div className="flex items-center space-x-4 max-sm:hidden">
+              <h1 className="text-2xl font-bold text-primary max-sm:hidden">Jal Sewa</h1>
+              <span className="text-sm text-muted-foreground max-md:hidden">Water Quality Management</span>
             </div>
             
             <div className="flex items-center space-x-4">
@@ -216,41 +216,41 @@ export const WaterQualityDashboard: React.FC<WaterQualityDashboardProps> = ({ us
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Tabs defaultValue="calculator" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="calculator" className="flex items-center gap-2">
+        <Tabs defaultValue="calculator" className="space-y-6 max-lg:">
+          <TabsList className="grid w-full grid-cols-6 max-lg:grid-cols-3 max-lg:h-24 ">
+            <TabsTrigger value="calculator" className="flex items-center gap-2 mb-1">
               <Calculator className="h-4 w-4" />
               Calculator
             </TabsTrigger>
-            <TabsTrigger value="samples" className="flex items-center gap-2">
+            <TabsTrigger value="samples" className="flex items-center gap-2 mb-1">
               <Database className="h-4 w-4" />
               Samples
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="flex items-center gap-2">
+            <TabsTrigger value="analytics" className="flex items-center gap-2 mb-1">
               <TrendingUp className="h-4 w-4" />
               Analytics
             </TabsTrigger>
-            <TabsTrigger value="reports" className="flex items-center gap-2">
+            <TabsTrigger value="reports" className="flex items-center gap-2 mb-1">
               <FileText className="h-4 w-4" />
               Reports
             </TabsTrigger>
-            <TabsTrigger value="alerts" className="flex items-center gap-2">
+            <TabsTrigger value="alerts" className="flex items-center gap-2 mb-1">
               <AlertTriangle className="h-4 w-4" />
               Alerts
             </TabsTrigger>
-            <TabsTrigger value="admin" className="flex items-center gap-2">
+            <TabsTrigger value="admin" className="flex items-center gap-2 mb-1">
               <Settings className="h-4 w-4" />
               Admin
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="calculator" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="lg:col-span-2">
                 <HMPICalculator />
               </div>
               
-              <div className="space-y-6">
+              {/* <div className="space-y-6">
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
@@ -275,23 +275,7 @@ export const WaterQualityDashboard: React.FC<WaterQualityDashboardProps> = ({ us
                     )}
                   </CardContent>
                 </Card>
-
-                <WaterQualityClassification 
-                  hmpiValue={0}
-                  hpiValue={0}
-                  heiValue={0}
-                  pliValue={0}
-                />
-                <IndexChart results={{
-                  HPI: 0,
-                  HEI: 0,
-                  HMPI: 0,
-                  HCI: 0,
-                  Cd: 0,
-                  PI: 0,
-                  PLI: 0
-                }} />
-              </div>
+              </div> */}
             </div>
           </TabsContent>
 
