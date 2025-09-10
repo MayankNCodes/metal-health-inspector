@@ -110,7 +110,7 @@ export const WaterQualityDashboard: React.FC<WaterQualityDashboardProps> = ({ us
       await supabase.auth.signOut();
       toast({
         title: "Signed out successfully",
-        description: "Thank you for using Jal Sewa",
+        description: "Thank you for using Jal Sarathi",
       });
     } catch (error: any) {
       toast({
@@ -194,7 +194,7 @@ export const WaterQualityDashboard: React.FC<WaterQualityDashboardProps> = ({ us
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between max-sm:justify-center items-center h-16">
             <div className="flex items-center space-x-4 max-sm:hidden">
-              <h1 className="text-2xl font-bold text-primary max-sm:hidden">Jal Sewa</h1>
+              <h1 className="text-2xl font-bold text-primary max-sm:hidden">Jal Sarathi</h1>
               <span className="text-sm text-muted-foreground max-md:hidden">Water Quality Management</span>
             </div>
             

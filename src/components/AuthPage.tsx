@@ -58,7 +58,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onAuthSuccess }) => {
 
       toast({
         title: "Signed in successfully",
-        description: "Welcome back to Jal Sewa Water Quality Management",
+        description: "Welcome back to Jal Sarathi Water Quality Management",
       });
     } catch (error: any) {
       toast({
@@ -113,7 +113,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onAuthSuccess }) => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-primary">Jal Sewa</CardTitle>
+          <CardTitle className="text-2xl font-bold text-primary">Jal Sarathi</CardTitle>
           <CardDescription>Water Quality Management System</CardDescription>
         </CardHeader>
 

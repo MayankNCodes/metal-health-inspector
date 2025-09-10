@@ -42,7 +42,7 @@ const Index = () => {
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">Loading Jal Sewa...</p>
+          <p className="mt-4 text-muted-foreground">Loading Jal Sarathi...</p>
         </div>
       </div>
     );
