@@ -12,6 +12,7 @@ import { LocationService } from './LocationService';
 import { WaterQualityClassification } from './WaterQualityClassification';
 import { IndexChart } from './IndexChart';
 import { UserRoleDisplay } from './UserRoleDisplay';
+import { calculateAllIndices} from './Calculate';
 
 // Types for our data structures
 interface SampleData {
@@ -118,23 +119,28 @@ export const HMPICalculator: React.FC = () => {
 
   // Simulate HMPI calculations (replace with actual backend call)
   const calculateHMPI = async (): Promise<HMPIResults> => {
+    const numericConcentrations = Object.fromEntries(
+      Object.entries(concentrations).map(([key, value]) => [key, value === '' ? 0 : value])
+    );
+    const results = calculateAllIndices(numericConcentrations);
     // Placeholder calculation - replace with actual API call
     await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate processing
     
-    const mockResults: HMPIResults = {
-      HPI: 75.5,
-      HEI: 42.3,
-      HMPI: 58.9,
-      HCI: 1.24,
-      Cd: 2.1,
-      PI: 0.89,
-      PLI: 1.45,
-      classification: "Moderately Polluted"
-    };
+    // const mockResults: HMPIResults = {
+    //   HPI: 75.5,
+    //   HEI: 42.3,
+    //   HMPI: 58.9,
+    //   HCI: 1.24,
+    //   Cd: 2.1,
+    //   PI: 0.89,
+    //   PLI: 1.45,
+    //   classification: "Moderately Polluted"
+    // };
     
-    return mockResults;
+    return results;
   };
-
+  console.log(concentrations);
+  
   const handleCalculate = async () => {
     if (!validateInputs()) return;
     
